@@ -1,0 +1,10 @@
+{% if form.errors %}
+    <p style="color: red;">{{form.errors}}</p>
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type=button value="Back" onClick="javascript:history.go(-1);">
+  <button type="submit">Edit</button>
+</form>

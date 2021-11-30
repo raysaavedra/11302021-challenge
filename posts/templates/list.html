@@ -1,0 +1,48 @@
+<ul>
+  {% for post in posts %}
+      <li>
+        <div class="card" style="width: 18rem;">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.body}}</p>
+            {% if owner %}
+              <a href="{% url 'post-update' post.id %}" class="btn btn-primary">Edit</a>
+              <a href="{% url 'post-delete' post.id %}" class="btn btn-danger">Delete</a>
+              <button data-id="{{post.id}}" data-ispublic="{{post.is_public}}" class="publicBtn">
+                {% if post.is_public %}
+                  Make private
+                {% else %}
+                  Make public
+                {% endif %}
+              </button>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+  {% endfor %}
+</ul>
+
+{% block javascript %}
+  <script>
+    function update_public(id, is_public) {
+      console.log(id, is_public)
+      $.ajax({
+          url : `/posts/${id}/public`,
+          type : "POST",
+          dataType: 'json',
+          data : {
+              'csrfmiddlewaretoken' : "{{  csrf_token  }}",
+              is_public
+          },
+          success : function(result) {
+            window.location.reload();
+          }
+      });
+    }
+
+    $(".publicBtn").click(function () {
+      update_public($(this).data("id"), !($(this).data("ispublic") === "True"))
+    });
+  </script>
+{% endblock %}

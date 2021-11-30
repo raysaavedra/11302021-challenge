@@ -1,0 +1,27 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="row">
+    {% if user.is_authenticated %}
+    <div class="col">
+      <p>Hi {{ user.email }}!</p>
+    </div>
+    <div class="col">
+      <a href="{% url 'home' %}">Home</a>
+    </div>
+    <div class="col">
+      <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    {% else %}
+      <div class="col">
+        <p>Landing Page</p>
+      </div>
+      <div class="col">
+        <a href="{% url 'login' %}">Log In</a>
+      </div>
+      <div class="col">
+        <a href="{% url 'signup' %}">Sign Up</a>
+      </div>
+    {% endif %}
+  </div>
+</nav>

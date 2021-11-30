@@ -1,0 +1,7 @@
+<h2>Log In</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type=button value="Back" onClick="javascript:history.go(-1);">
+  <button type="submit">Log In</button>
+</form>
