@@ -33,7 +33,6 @@ class PostDeleteView(DeleteView):
 def is_public(request, pk):
     # should use DRF, but this will do for the mean time
     if request.is_ajax and request.method == "POST":
-        print(json.loads(request.POST["is_public"]))
         obj = Post.objects.get(pk=pk)
         obj.is_public = json.loads(request.POST["is_public"])
         obj.save()
